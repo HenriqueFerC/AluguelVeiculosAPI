@@ -1,0 +1,61 @@
+package br.com.learning.AluguelVeiculosAPI.model;
+
+import br.com.learning.AluguelVeiculosAPI.exception.HireException;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+
+@MappedSuperclass
+@Getter
+@Setter(AccessLevel.NONE)
+@AllArgsConstructor
+public abstract class Veicle {
+
+    @Id
+    @GeneratedValue
+    protected Integer id;
+
+    @Column(name = "Plate", length = 8, nullable = false, unique = true)
+    protected String plate;
+
+    @Column(name = "Model", length = 20, nullable = false)
+    protected String model;
+
+    @Column(name = "Year", length = 4, nullable = false)
+    protected short year;
+
+    @Column(name = "Daily_Value", length = 10, nullable = false)
+    protected BigDecimal dailyValue;
+
+    @Column(name = "Available", nullable = false)
+    protected boolean available;
+
+    public BigDecimal calculateRentValue(short days) {
+        return dailyValue.multiply(BigDecimal.valueOf(days));
+    }
+
+    public void hire() throws HireException {
+        if (!available) {
+            throw new HireException("Unable to hire this veicle 'cause isn't available.");
+        }
+        available = false;
+    }
+
+    public void giveBack() throws HireException {
+        if (available) {
+            throw new HireException("First need's to hire a veicle.");
+        }
+        available = false;
+    }
+
+    public boolean disponibility () {
+        return available;
+    }
+}
