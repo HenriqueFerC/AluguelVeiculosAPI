@@ -1,21 +1,18 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
 import br.com.learning.AluguelVeiculosAPI.exception.HireException;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @MappedSuperclass
 @Getter
 @Setter(AccessLevel.NONE)
+@NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Veicle {
 
     @Id
@@ -37,6 +34,10 @@ public abstract class Veicle {
     @Column(name = "Available", nullable = false)
     protected boolean available;
 
+    @OneToOne
+    @JoinColumn(name = "id_hire")
+    protected Hire hire;
+
     public BigDecimal calculateRentValue(short days) {
         return dailyValue.multiply(BigDecimal.valueOf(days));
     }
@@ -55,7 +56,7 @@ public abstract class Veicle {
         available = false;
     }
 
-    public boolean disponibility () {
+    public boolean disponibility() {
         return available;
     }
 }

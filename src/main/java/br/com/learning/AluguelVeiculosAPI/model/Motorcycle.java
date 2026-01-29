@@ -1,21 +1,24 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter(AccessLevel.NONE)
+@AllArgsConstructor
 @Entity
 @Table(name = "Motorcycle")
-public class Motorcycle extends Veicle{
+public class Motorcycle extends Veicle {
 
-    public Motorcycle(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available) {
-        super(id, plate, model, year, dailyValue, available);
+    @Column(name = "Cylinder_Capacity", nullable = false, length = 4)
+    private short cylinderCapacity;
+
+    public Motorcycle(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available, Hire hire) {
+        super(id, plate, model, year, dailyValue, available, hire);
     }
 
     @Override
