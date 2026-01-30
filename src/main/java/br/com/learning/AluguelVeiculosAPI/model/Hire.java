@@ -42,7 +42,10 @@ public class Hire {
     private Costumer costumer;
 
     @OneToOne(mappedBy = "hire")
-    private Veicle veicle;
+    private Car car;
+
+    @OneToOne(mappedBy = "hire")
+    private Motorcycle motorcycle;
 
     public Hire(RegisterHireDto hireDto) {
         days = hireDto.days();

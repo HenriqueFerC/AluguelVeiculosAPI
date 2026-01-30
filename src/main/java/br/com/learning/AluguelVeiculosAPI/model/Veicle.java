@@ -12,7 +12,6 @@ import java.util.List;
 @Setter(AccessLevel.NONE)
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Veicle {
 
     @Id
@@ -34,9 +33,6 @@ public abstract class Veicle {
     @Column(name = "Available", nullable = false)
     protected boolean available;
 
-    @OneToOne
-    @JoinColumn(name = "id_hire")
-    protected Hire hire;
 
     public BigDecimal calculateRentValue(short days) {
         return dailyValue.multiply(BigDecimal.valueOf(days));
