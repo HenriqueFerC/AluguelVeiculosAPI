@@ -1,5 +1,6 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import br.com.learning.AluguelVeiculosAPI.dto.CarDto.RegisterCarDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @Table(name = "Car")
-public class Car extends Veicle{
+public class Car extends Veicle {
 
     public Car(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available, Hire hire) {
         super(id, plate, model, year, dailyValue, available, hire);
@@ -23,4 +24,13 @@ public class Car extends Veicle{
 
     @Column(name = "Doors", nullable = false, length = 4)
     private short doors;
+
+    public Car(RegisterCarDto carDto) {
+        plate = carDto.plate();
+        model = carDto.model();
+        year = carDto.year();
+        dailyValue = carDto.dailyValue();
+        available = carDto.available();
+        doors = carDto.doors();
+    }
 }

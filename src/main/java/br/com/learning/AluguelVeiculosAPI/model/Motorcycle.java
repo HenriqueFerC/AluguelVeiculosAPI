@@ -1,5 +1,6 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import br.com.learning.AluguelVeiculosAPI.dto.MotorcycleDto.RegisterMotorcycleDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -27,5 +28,14 @@ public class Motorcycle extends Veicle {
         totalValue = dailyValue.multiply(BigDecimal.valueOf(days));
         totalValue = totalValue.multiply(BigDecimal.valueOf(0.9));
         return totalValue;
+    }
+
+    public Motorcycle(RegisterMotorcycleDto motorcycleDto) {
+        plate = motorcycleDto.plate();
+        model = motorcycleDto.model();
+        year = motorcycleDto.year();
+        dailyValue = motorcycleDto.dailyValue();
+        available = motorcycleDto.available();
+        cylinderCapacity = motorcycleDto.cylinderCapacity();
     }
 }

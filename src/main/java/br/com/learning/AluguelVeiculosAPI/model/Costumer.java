@@ -1,5 +1,6 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import br.com.learning.AluguelVeiculosAPI.dto.CostumerDto.RegisterCostumerDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class Costumer {
     @Enumerated(EnumType.STRING)
     private CostumerType costumerType;
 
-    @Column(name = "Cpf_Cnpj", length = 14,nullable = false)
+    @Column(name = "Cpf_Cnpj", length = 14, nullable = false)
     private String cpfOrCnpj;
 
     @OneToOne(mappedBy = "costumer")
@@ -40,4 +41,12 @@ public class Costumer {
 
     @OneToMany(mappedBy = "costumer")
     private List<Hire> hires;
+
+    public Costumer(RegisterCostumerDto costumerDto) {
+        name = costumerDto.name();
+        email = costumerDto.email();
+        contact = costumerDto.contact();
+        costumerType = costumerDto.costumerType();
+        cpfOrCnpj = costumerDto.cpfOrCnpj();
+    }
 }

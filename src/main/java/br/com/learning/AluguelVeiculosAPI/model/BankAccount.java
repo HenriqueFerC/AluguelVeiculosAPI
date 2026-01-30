@@ -1,5 +1,6 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import br.com.learning.AluguelVeiculosAPI.dto.BankAccount.RegisterBankAccountDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,4 +35,11 @@ public class BankAccount {
     @OneToOne
     @JoinColumn(name = "id_Costumer")
     private Costumer costumer;
+
+    public BankAccount(RegisterBankAccountDto bankAccountDto) {
+        agency = bankAccountDto.agency();
+        accountNumber = bankAccountDto.accountNumber();
+        balance = bankAccountDto.balance();
+        creditLimit = bankAccountDto.creditLimit();
+    }
 }

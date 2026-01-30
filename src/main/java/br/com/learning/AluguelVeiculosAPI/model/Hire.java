@@ -1,5 +1,6 @@
 package br.com.learning.AluguelVeiculosAPI.model;
 
+import br.com.learning.AluguelVeiculosAPI.dto.HireDto.RegisterHireDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -43,5 +44,7 @@ public class Hire {
     @OneToOne(mappedBy = "hire")
     private Veicle veicle;
 
-
+    public Hire(RegisterHireDto hireDto) {
+        days = hireDto.days();
+    }
 }
