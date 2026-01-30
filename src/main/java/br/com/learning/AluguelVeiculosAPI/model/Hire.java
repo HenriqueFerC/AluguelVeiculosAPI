@@ -5,12 +5,16 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter(AccessLevel.NONE)
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "Hire")
 public class Hire {
@@ -24,6 +28,13 @@ public class Hire {
 
     @Column(name = "Total_Value")
     private BigDecimal totalValue;
+
+    @Column(name = "Hire_Date", nullable = false)
+    @CreatedDate
+    private LocalDateTime hireDate;
+
+    @Column(name = "Give_Back_Date")
+    private LocalDateTime giveBackDate;
 
     @ManyToOne
     @JoinColumn(name = "id_Costumer")
