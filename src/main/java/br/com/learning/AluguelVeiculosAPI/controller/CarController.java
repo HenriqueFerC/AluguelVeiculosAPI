@@ -7,9 +7,11 @@ import br.com.learning.AluguelVeiculosAPI.repository.CarRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -32,12 +34,8 @@ public class CarController {
 
     @GetMapping("{id}")
     public ResponseEntity<DetailsCarDto> detailsCar(@PathVariable("id") int id) {
-        try {
-            var car = carRepository.getReferenceById(id);
-            return ResponseEntity.ok().body(new DetailsCarDto(car));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        var car = carRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not Found!"));
+        return ResponseEntity.ok().body(new DetailsCarDto(car));
     }
 
     @GetMapping("ListCar")

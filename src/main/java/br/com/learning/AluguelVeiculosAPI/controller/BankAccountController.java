@@ -8,9 +8,11 @@ import br.com.learning.AluguelVeiculosAPI.repository.BankAccountRepository;
 import br.com.learning.AluguelVeiculosAPI.repository.CostumerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Optional;
@@ -28,7 +30,7 @@ public class BankAccountController {
     @PostMapping("register/{idCostumer}")
     @Transactional
     public ResponseEntity<DetailsBankAccountDto> registerBankAccount(@PathVariable("idCostumer") int id, @RequestBody RegisterBankAccountDto bankAccountDto, UriComponentsBuilder uriBuilder) {
-        Costumer costumer = costumerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Costumer not Found!"));
+        Costumer costumer = costumerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Costumer not Found!"));
 
         var bankAccount = new BankAccount(bankAccountDto, costumer);
         bankAccountRepository.save(bankAccount);
