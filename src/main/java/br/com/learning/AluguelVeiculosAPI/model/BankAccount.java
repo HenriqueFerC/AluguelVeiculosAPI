@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Getter
-@Setter(AccessLevel.NONE)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,6 +17,7 @@ public class BankAccount {
 
     @Id
     @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private Integer id;
 
     @Column(name = "Agency", length = 4, nullable = false)
@@ -34,10 +36,11 @@ public class BankAccount {
     @JoinColumn(name = "id_Costumer")
     private Costumer costumer;
 
-    public BankAccount(RegisterBankAccountDto bankAccountDto) {
+    public BankAccount(RegisterBankAccountDto bankAccountDto, Costumer costumer) {
         agency = bankAccountDto.agency();
         accountNumber = bankAccountDto.accountNumber();
         balance = bankAccountDto.balance();
         creditLimit = bankAccountDto.creditLimit();
+        this.costumer = costumer;
     }
 }

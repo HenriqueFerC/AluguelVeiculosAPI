@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Getter
-@Setter(AccessLevel.NONE)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,6 +16,7 @@ public class Costumer {
 
     @Id
     @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private Integer id;
 
     @Column(name = "Name", length = 60, nullable = false)
@@ -39,6 +40,7 @@ public class Costumer {
 
     @OneToMany(mappedBy = "costumer")
     private List<Hire> hires;
+
 
     public Costumer(RegisterCostumerDto costumerDto) {
         name = costumerDto.name();

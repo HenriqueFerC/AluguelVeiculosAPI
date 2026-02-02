@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
-@Setter(AccessLevel.NONE)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

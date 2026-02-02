@@ -8,13 +8,14 @@ import java.math.BigDecimal;
 
 @MappedSuperclass
 @Getter
-@Setter(AccessLevel.NONE)
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Veicle {
 
     @Id
     @GeneratedValue
+    @Setter(AccessLevel.NONE)
     protected Integer id;
 
     @Column(name = "Plate", length = 8, nullable = false, unique = true)
