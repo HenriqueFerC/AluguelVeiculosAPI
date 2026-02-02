@@ -42,11 +42,7 @@ public class BankAccountController {
 
     @GetMapping("{id}")
     public ResponseEntity<DetailsBankAccountDto> detailsBankAccount(@PathVariable("id") int id) {
-        try {
-            var bankAccount = bankAccountRepository.getReferenceById(id);
-            return ResponseEntity.ok().body(new DetailsBankAccountDto(bankAccount));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        var bankAccount = bankAccountRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "BankAccount not Found!"));
+        return ResponseEntity.ok().body(new DetailsBankAccountDto(bankAccount));
     }
 }

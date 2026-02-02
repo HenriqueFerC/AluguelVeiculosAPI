@@ -32,7 +32,7 @@ public class Costumer {
     @Enumerated(EnumType.STRING)
     private CostumerType costumerType;
 
-    @Column(name = "Cpf_Cnpj", length = 14, nullable = false)
+    @Column(name = "Cpf_Cnpj", length = 14, nullable = false, unique = true)
     private String cpfOrCnpj;
 
     @OneToOne(mappedBy = "costumer")
@@ -41,6 +41,9 @@ public class Costumer {
     @OneToMany(mappedBy = "costumer")
     private List<Hire> hires;
 
+    public void addHires(Hire hire) {
+        hires.add(hire);
+    }
 
     public Costumer(RegisterCostumerDto costumerDto) {
         name = costumerDto.name();

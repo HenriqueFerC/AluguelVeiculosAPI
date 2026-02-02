@@ -48,7 +48,15 @@ public class Hire {
     @JoinColumn(name = "Id_Moto")
     private Motorcycle motorcycle;
 
-    public Hire(RegisterHireDto hireDto) {
+    public Hire(RegisterHireDto hireDto, Car car, Costumer costumer) {
         days = hireDto.days();
+        this.car = car;
+        this.costumer = costumer;
+    }
+
+    public Hire(RegisterHireDto hireDto, Motorcycle motorcycle, Costumer costumer) {
+        days = hireDto.days();
+        this.motorcycle = motorcycle;
+        this.costumer = costumer;
     }
 }
