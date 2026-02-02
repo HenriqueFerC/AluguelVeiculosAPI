@@ -2,15 +2,13 @@ package br.com.learning.AluguelVeiculosAPI.model;
 
 import br.com.learning.AluguelVeiculosAPI.dto.CostumerDto.RegisterCostumerDto;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter(AccessLevel.NONE)
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "Costumer")

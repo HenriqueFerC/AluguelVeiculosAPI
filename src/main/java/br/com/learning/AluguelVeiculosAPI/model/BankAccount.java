@@ -2,15 +2,13 @@ package br.com.learning.AluguelVeiculosAPI.model;
 
 import br.com.learning.AluguelVeiculosAPI.dto.BankAccount.RegisterBankAccountDto;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter(AccessLevel.NONE)
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "BankAccount")

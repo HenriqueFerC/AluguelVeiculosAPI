@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter(AccessLevel.NONE)
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "Motorcycle")
@@ -16,13 +18,8 @@ public class Motorcycle extends Veicle {
     @Column(name = "Cylinder_Capacity", nullable = false, length = 4)
     private short cylinderCapacity;
 
-    @OneToOne
-    @JoinColumn(name = "Id_Hire")
-    private Hire hire;
-
-    public Motorcycle(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available) {
-        super(id, plate, model, year, dailyValue, available);
-    }
+    @OneToMany(mappedBy = "motorcycle")
+    private List<Hire> hires;
 
     @Override
     public BigDecimal calculateRentValue(short days) {
@@ -30,6 +27,14 @@ public class Motorcycle extends Veicle {
         totalValue = dailyValue.multiply(BigDecimal.valueOf(days));
         totalValue = totalValue.multiply(BigDecimal.valueOf(0.9));
         return totalValue;
+    }
+
+    public void addHire(Hire hire) {
+        hires.add(hire);
+    }
+
+    public Motorcycle(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available) {
+        super(id, plate, model, year, dailyValue, available);
     }
 
     public Motorcycle(RegisterMotorcycleDto motorcycleDto) {

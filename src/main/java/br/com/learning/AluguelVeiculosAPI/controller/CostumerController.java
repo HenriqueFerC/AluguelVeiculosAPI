@@ -1,4 +1,49 @@
 package br.com.learning.AluguelVeiculosAPI.controller;
 
+import br.com.learning.AluguelVeiculosAPI.dto.CostumerDto.DetailsCostumerDto;
+import br.com.learning.AluguelVeiculosAPI.dto.CostumerDto.RegisterCostumerDto;
+import br.com.learning.AluguelVeiculosAPI.model.Costumer;
+import br.com.learning.AluguelVeiculosAPI.repository.CostumerRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.swing.text.html.parser.Entity;
+import java.util.List;
+
+@RestController
+@RequestMapping("costumer")
 public class CostumerController {
+
+    @Autowired
+    private CostumerRepository costumerRepository;
+
+    @PostMapping("register")
+    @Transactional
+    public ResponseEntity<DetailsCostumerDto> registerCostumer(@RequestBody RegisterCostumerDto costumerDto, UriComponentsBuilder uriBuilder) {
+        var costumer = new Costumer(costumerDto);
+        costumerRepository.save(costumer);
+        var uri = uriBuilder.path("costumer/{id}").buildAndExpand(costumer.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DetailsCostumerDto(costumer));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<DetailsCostumerDto> detailsCostumer(@PathVariable("id") int id) {
+        try {
+            var costumer = costumerRepository.getReferenceById(id);
+            return ResponseEntity.ok().body(new DetailsCostumerDto(costumer));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("ListCostumer")
+    public ResponseEntity<List<DetailsCostumerDto>> listDetailsCostumer(Pageable pageable) {
+        var lista = costumerRepository.findAll(pageable).stream().map(DetailsCostumerDto::new).toList();
+        if(lista.isEmpty())
+    }
 }

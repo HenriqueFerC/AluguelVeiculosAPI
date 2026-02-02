@@ -2,10 +2,7 @@ package br.com.learning.AluguelVeiculosAPI.model;
 
 import br.com.learning.AluguelVeiculosAPI.dto.HireDto.RegisterHireDto;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter(AccessLevel.NONE)
+@NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -41,10 +39,12 @@ public class Hire {
     @JoinColumn(name = "id_Costumer")
     private Costumer costumer;
 
-    @OneToOne(mappedBy = "hire")
+    @ManyToOne
+    @JoinColumn(name = "Id_Car")
     private Car car;
 
-    @OneToOne(mappedBy = "hire")
+    @ManyToOne
+    @JoinColumn(name = "Id_Moto")
     private Motorcycle motorcycle;
 
     public Hire(RegisterHireDto hireDto) {
