@@ -21,6 +21,10 @@ public class Car extends Veicle {
     @OneToMany(mappedBy = "car")
     private List<Hire> hires;
 
+    public void addHire(Hire hire) {
+        hires.add(hire);
+    }
+
     public Car(Integer id, String plate, String model, short year, BigDecimal dailyValue, boolean available) {
         super(id, plate, model, year, dailyValue, available);
     }
@@ -34,7 +38,4 @@ public class Car extends Veicle {
         doors = carDto.doors();
     }
 
-    public void addHire(Hire hire) {
-        hires.add(hire);
-    }
 }

@@ -42,10 +42,10 @@ public class CarController {
 
     @GetMapping("ListCar")
     public ResponseEntity<List<DetailsCarDto>> listDetaailsCar(Pageable pageable) {
-        var lista = carRepository.findAll(pageable).stream().map(DetailsCarDto::new).toList();
-        if(lista.isEmpty()) {
+        var list = carRepository.findAll(pageable).stream().map(DetailsCarDto::new).toList();
+        if(list.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(lista);
+        return ResponseEntity.ok(list);
     }
 }

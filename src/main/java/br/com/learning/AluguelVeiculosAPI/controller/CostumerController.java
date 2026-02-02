@@ -43,7 +43,10 @@ public class CostumerController {
 
     @GetMapping("ListCostumer")
     public ResponseEntity<List<DetailsCostumerDto>> listDetailsCostumer(Pageable pageable) {
-        var lista = costumerRepository.findAll(pageable).stream().map(DetailsCostumerDto::new).toList();
-        if(lista.isEmpty())
+        var list = costumerRepository.findAll(pageable).stream().map(DetailsCostumerDto::new).toList();
+        if(list.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(list);
     }
 }
